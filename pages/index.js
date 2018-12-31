@@ -104,7 +104,6 @@ class index extends Component {
   };
 
   render() {
-
     return (
       <Layout>
         <div>
@@ -126,10 +125,11 @@ class index extends Component {
         <hr />
         <div>{this.renderHospitals()};</div>
         <Link route="/patient/">
-        <a>
-this is link to patient/index.js page
-</a>
+          <a>this is link to patient/index.js page</a>
+        </Link>
 
+        <Link route="/doctor">
+          <a>Doctor Page Link</a>
         </Link>
       </Layout>
     );

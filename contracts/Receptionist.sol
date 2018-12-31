@@ -1,9 +1,10 @@
 pragma solidity ^0.4.24;
 
 import "./Doctor.sol";
-import "./patient.sol";
+import "./Patient.sol";
 contract ReceptionsitFactory{
-    struct ReceptionSummary{
+    // struct for reception summary and appointment
+   struct ReceptionSummary{
         string hospitalName;
         string receptionistName;
         address manager;
@@ -20,10 +21,8 @@ contract ReceptionsitFactory{
   }
 
 
-  mapping(uint => Appointement) public appointements;
-
-
-    ReceptionSummary[] public receptionSummary;
+        mapping(uint => Appointement) public appointements;
+        ReceptionSummary[] public receptionSummary;
         address public factoryAddress;
         Patient public patient;
         Doctor public doctor;
@@ -34,12 +33,12 @@ contract ReceptionsitFactory{
         address public manager;
         //for patient
         mapping (address=>address) public accountToAddressPatient;
-       mapping (uint => address)  public patientIdToAddress;
-       mapping(uint=>bool) public checkPatientId;
-       uint[] public patientId;
-       address public patientAddress;
+        mapping (uint => address)  public patientIdToAddress;
+        mapping(uint=>bool) public checkPatientId;
+        uint[] public patientId;
+        address public patientAddress;
 
-       //for Doctor
+        //for Doctor
 
         mapping (address=>address) public accountToAddressDoctor;
         mapping (uint => address)  public doctorIdToAddress;
@@ -77,7 +76,7 @@ contract ReceptionsitFactory{
     }
 
 
-     function addPatient(uint _patientId, string _patientName, string _gender, uint _age, address _account) public {
+   function addPatient(uint _patientId, string _patientName, string _gender, uint _age, address _account) public {
                  require(!checkPatientId[_patientId]);
 
           patient = new Patient(_patientId , _patientName , _gender , _age , _account);
@@ -92,6 +91,7 @@ contract ReceptionsitFactory{
         require(!checkDoctorId[_DoctorId]);
         Doctor doc = new Doctor(_DoctorId , _DoctorName , _DoctorGender , _qualification , _account);
         doctorIdToAddress[_DoctorId]= doc;
+        accountToAddressDoctor[_account] = doc;
         doctorId.push(_DoctorId);
         checkDoctorId[_DoctorId] = true;
         doc.setFactoryAddress(factoryAddress);

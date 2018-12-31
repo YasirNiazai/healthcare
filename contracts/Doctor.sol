@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 
 import "./Receptionist.sol";
-import "./patient.sol";
+import "./Patient.sol";
 contract Doctor{
 
     struct Appointment{
@@ -75,5 +75,9 @@ contract Doctor{
 
       function setFactoryAddress(address fac){
           factoryAddress = fac;
+      }
+
+      function getSummary(uint doctorId) public view returns(uint , string, string , string ,  address){
+        return(doctorId , doctorName , gender , qualification , manager);
       }
 }

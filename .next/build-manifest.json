@@ -11,19 +11,15 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/hospital/hospitalDetails": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/index": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
     "/patient": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/": [
+    "/doctor": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/patient/record": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

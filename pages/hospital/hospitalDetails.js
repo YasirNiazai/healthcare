@@ -76,7 +76,6 @@ class hospitalDetails extends Component {
     const optionsArray = ["one", "two", "three"];
     console.log("S", hospitalSummary);
 
-
     return {
       address: props.query.address,
       hospitalName: hospitalSummary[0],
@@ -332,7 +331,7 @@ class hospitalDetails extends Component {
               <Table.HeaderCell>Patient Id</Table.HeaderCell>
               <Table.HeaderCell>Doctor Id</Table.HeaderCell>
               <Table.HeaderCell>Date</Table.HeaderCell>
-              <Table.HeaderCell>Chep Complaint</Table.HeaderCell>
+              <Table.HeaderCell>Chief Complaint</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -359,8 +358,9 @@ class hospitalDetails extends Component {
     this.setState({ patientName: event.target.value });
   };
 
-  onGenderHandle = event => {
-    this.setState({ patientGender: event.target.value });
+  onGenderPatientHandle = (event, { value }) => {
+    this.setState({ patientGender: value });
+    console.log(this.state.patientGender);
   };
 
   onAgeHandle = event => {
@@ -379,8 +379,8 @@ class hospitalDetails extends Component {
     this.setState({ doctorQualification: event.target.value });
   };
 
-  onGenderDoctorHandle = event => {
-    this.setState({ doctorGender: event.target.value });
+  onGenderDoctorHandle = (event, { value }) => {
+    this.setState({ doctorGender: value });
   };
 
   onAppointmentId = event => {
@@ -480,6 +480,41 @@ class hospitalDetails extends Component {
     );
   };
 
+  genderPatientRender = () => {
+    const options = [
+      { key: 1, text: "Male", value: "Male" },
+      { key: 2, text: "Female", value: "Female" },
+      { key: 3, text: "Other", value: "Other" }
+    ];
+    return (
+      <Dropdown
+        clearable
+        options={options}
+        selection
+        search
+        value={this.state.patientGender}
+        onChange={this.onGenderPatientHandle}
+      />
+    );
+  };
+
+  genderDoctorRender = () => {
+    const options = [
+      { key: 1, text: "Male", value: "Male" },
+      { key: 2, text: "Female", value: "Female" },
+      { key: 3, text: "Other", value: "Other" }
+    ];
+    return (
+      <Dropdown
+        clearable
+        options={options}
+        selection
+        search
+        value={this.state.doctorGender}
+        onChange={this.onGenderDoctorHandle}
+      />
+    );
+  };
   renderTabs() {
     const panes = [
       {
@@ -510,10 +545,7 @@ class hospitalDetails extends Component {
               <Form.Group widths="equal">
                 <Form.Field>
                   <label>Patient Gender</label>
-                  <Input
-                    value={this.state.patientGender}
-                    onChange={this.onGenderHandle}
-                  />
+                  {this.genderPatientRender()}
                 </Form.Field>
                 <Form.Field>
                   <label>Patient Age</label>
@@ -572,10 +604,7 @@ class hospitalDetails extends Component {
               <Form.Group widths="equal">
                 <Form.Field>
                   <label>Doctor Gender</label>
-                  <Input
-                    value={this.state.doctorGender}
-                    onChange={this.onGenderDoctorHandle}
-                  />
+                  {this.genderDoctorRender()}
                 </Form.Field>
                 <Form.Field>
                   <label>Doctor Qualification</label>
@@ -752,13 +781,11 @@ class hospitalDetails extends Component {
         </div>
         <hr />
         <ToggleDisplay show={this.state.show}>
-          {" "}
           <h1 style={{ marginLeft: 300 }}>Admin Panel</h1>
           {this.renderTabs()}
           <hr />
         </ToggleDisplay>
         <ToggleDisplay show={!this.state.show}>
-          {" "}
           <div>
             <h1 style={{ color: "red" }}>{this.state.notAdmin}</h1>
           </div>
